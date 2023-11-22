@@ -1,15 +1,25 @@
 using System;
-using congestion.calculator;
+using System.Collections.Generic;
+
 public class CongestionTaxCalculator
 {
-    /**
-         * Calculate the total toll fee for one day
-         *
-         * @param vehicle - the vehicle
-         * @param dates   - date and time of all passes on one day
-         * @return - the total congestion tax for that day
-         */
-
+    private readonly Dictionary<string, int> congestionRates;
+    public CongestionTaxCalculator()
+    {
+        congestionRates = new Dictionary<string, int>
+        {
+            { "06:00-06:29", 8 },
+            { "06:30-06:59", 13 },
+            { "07:00-07:59", 18 },
+            { "08:00-08:29", 13 },
+            { "08:30-14:59", 8 },
+            { "15:00-15:29", 13 },
+            { "15:30-16:59", 18 },
+            { "17:00-17:59", 13 },
+            { "18:00-18:29", 8 },
+            { "18:30-05:59", 0 }
+        };
+    }
     public int GetTax(Vehicle vehicle, DateTime[] dates)
     {
         DateTime intervalStart = dates[0];
